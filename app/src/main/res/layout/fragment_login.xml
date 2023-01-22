@@ -5,6 +5,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.tensoriot.auth.AuthViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,18 +17,38 @@
         android:layout_height="match_parent"
         tools:context=".auth.fragments.LoginFragment">
 
+        <include
+            android:id="@+id/layout_progress"
+            layout="@layout/layout_progress"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="@{viewModel.loading?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp60"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_launcher" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/dp20"
-            android:layout_marginTop="@dimen/dp100"
+            android:layout_marginTop="@dimen/dp40"
             app:boxBackgroundMode="outline"
             app:boxCornerRadiusBottomEnd="@dimen/dp8"
             app:boxCornerRadiusBottomStart="@dimen/dp8"
             app:boxCornerRadiusTopEnd="@dimen/dp8"
             app:boxCornerRadiusTopStart="@dimen/dp8"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/icLogin">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtEmail"

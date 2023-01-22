@@ -7,6 +7,7 @@
     <string name="username">Username</string>
     <string name="sign_up">Sign Up</string>
     <string name="signup_failed">Failed to Sign up, Please try after sometime</string>
+    <string name="signin_failed">Failed to Sign in, Please try after sometime</string>
     <string name="login">Log In</string>
     <string name="or">or</string>
     <string name="email_error">Please enter email address</string>
@@ -19,4 +20,5 @@
     <string name="password_length_error">Password length should be atleast 6</string>
     <string name="set_display_picture">Set Display Picture</string>
     <string name="authority">com.tensoriot.fileprovider</string>
+    <string name="welcome">Welcome</string>
 </resources>
