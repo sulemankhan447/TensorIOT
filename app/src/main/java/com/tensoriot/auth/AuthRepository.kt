@@ -7,8 +7,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
+import com.google.firebase.storage.FirebaseStorage
 import com.tensoriot.Constants
 import com.tensoriot.model.LoginRequestModel
 import com.tensoriot.model.User
@@ -24,7 +23,8 @@ interface AuthRepository {
 
 class FirebaseRepository @Inject constructor(
     val mAuth: FirebaseAuth,
-    val mDatabase:FirebaseDatabase,
+    val mDatabase: FirebaseDatabase,
+    val mStorage: FirebaseStorage,
     val sharedPrefHelper: SharedPrefHelper
 ) : AuthRepository {
 
@@ -34,17 +34,21 @@ class FirebaseRepository @Inject constructor(
     override fun registerUser(request: User) {
         statusLiveData.value = UiState.Loading()
         request.profile?.let {
-            val uploader = Firebase.storage.getReference(ImageUtils.getNameForProfile())
-            uploader.putFile(Uri.parse(it)).addOnSuccessListener {
-                uploader.downloadUrl.addOnSuccessListener { profileUrl ->
-                    request.profile = profileUrl.toString()
-                    registerUserInFirebase(request)
+
+            val uploader = mStorage.reference
+                .child("profile")
+                .child(ImageUtils.getNameForProfile())
+
+                uploader.putFile(Uri.parse(it)).addOnSuccessListener {
+                    uploader.downloadUrl.addOnSuccessListener { profileUrl ->
+                        request.profile = profileUrl.toString()
+                        registerUserInFirebase(request)
+                    }.addOnFailureListener {
+                        statusLiveData.value = UiState.Error("")
+                    }
                 }.addOnFailureListener {
                     statusLiveData.value = UiState.Error("")
                 }
-            }.addOnFailureListener {
-                statusLiveData.value = UiState.Error("")
-            }
         } ?: run {
             registerUserInFirebase(request)
         }
@@ -57,17 +61,20 @@ class FirebaseRepository @Inject constructor(
         mAuth.signInWithEmailAndPassword(request.email ?: "", request.password ?: "")
             .addOnCompleteListener { signInTask ->
                 if (signInTask.isSuccessful) {
-                   val query =  mDatabase.getReference(Constants.USERS_TABLE)
-                       .child(mAuth.uid?:"")
+                    val query = mDatabase.getReference(Constants.USERS_TABLE)
+                        .child(mAuth.uid ?: "")
                     val eventListener: ValueEventListener = object : ValueEventListener {
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                            val username = dataSnapshot.child(Constants.USERNAME.toLowerCase()).getValue(String::class.java)
-                            val profilePhoto = dataSnapshot.child(Constants.PROFILE.toLowerCase()).getValue(String::class.java)
-                            val shortBio = dataSnapshot.child(Constants.SHORT_BIO.toLowerCase()).getValue(String::class.java)
-                            sharedPrefHelper.saveString(Constants.USERNAME,username?:"")
-                            sharedPrefHelper.saveBoolean(Constants.IS_LOGIN,true)
-                            sharedPrefHelper.saveString(Constants.PROFILE,profilePhoto?:"")
+                            val username = dataSnapshot.child(Constants.USERNAME.toLowerCase())
+                                .getValue(String::class.java)
+                            val profilePhoto = dataSnapshot.child(Constants.PROFILE.toLowerCase())
+                                .getValue(String::class.java)
+                            val shortBio = dataSnapshot.child(Constants.SHORT_BIO.toLowerCase())
+                                .getValue(String::class.java)
+                            sharedPrefHelper.saveString(Constants.USERNAME, username ?: "")
+                            sharedPrefHelper.saveBoolean(Constants.IS_LOGIN, true)
+                            sharedPrefHelper.saveString(Constants.PROFILE, profilePhoto ?: "")
                             sharedPrefHelper.saveString(Constants.SHORT_BIO, shortBio ?: "")
                             statusLiveData.value = UiState.Success()
 
@@ -93,10 +100,19 @@ class FirebaseRepository @Inject constructor(
                         .child(mAuth.currentUser?.uid ?: "").setValue(request)
                         .addOnCompleteListener { userTask ->
                             if (userTask.isSuccessful) {
-                                sharedPrefHelper.saveString(Constants.PROFILE,request.profile?:"")
-                                sharedPrefHelper.saveString(Constants.USERNAME, request.username ?: "")
-                                sharedPrefHelper.saveString(Constants.SHORT_BIO, request.shortBio ?: "")
-                                sharedPrefHelper.saveBoolean(Constants.IS_LOGIN,true)
+                                sharedPrefHelper.saveString(
+                                    Constants.PROFILE,
+                                    request.profile ?: ""
+                                )
+                                sharedPrefHelper.saveString(
+                                    Constants.USERNAME,
+                                    request.username ?: ""
+                                )
+                                sharedPrefHelper.saveString(
+                                    Constants.SHORT_BIO,
+                                    request.shortBio ?: ""
+                                )
+                                sharedPrefHelper.saveBoolean(Constants.IS_LOGIN, true)
                                 statusLiveData.value = UiState.Success()
                             } else {
                                 statusLiveData.value =
