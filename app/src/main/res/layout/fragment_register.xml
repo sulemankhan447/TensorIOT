@@ -1,14 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".auth.RegisterFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.tensoriot.auth.AuthViewModel" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Register fragment" />
+        tools:context=".auth.fragments.RegisterFragment">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/layout_progress"
+                layout="@layout/layout_progress"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="@{viewModel.loading?View.VISIBLE:View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="@dimen/dp120"
+                android:layout_height="@dimen/dp120"
+                android:layout_marginTop="@dimen/dp50"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/circleImageView"
+                app:srcCompat="@drawable/baseline_camera_24" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSetDisplayPicture"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/dp10"
+                android:text="@string/set_display_picture"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/ivProfile"
+                app:layout_constraintStart_toStartOf="@+id/ivProfile"
+                app:layout_constraintTop_toBottomOf="@+id/ivProfile" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp20"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="@dimen/dp8"
+                app:boxCornerRadiusBottomStart="@dimen/dp8"
+                app:boxCornerRadiusTopEnd="@dimen/dp8"
+                app:boxCornerRadiusTopStart="@dimen/dp8"
+                app:layout_constraintTop_toBottomOf="@+id/tvSetDisplayPicture">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp30"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="@dimen/dp8"
+                app:boxCornerRadiusBottomStart="@dimen/dp8"
+                app:boxCornerRadiusTopEnd="@dimen/dp8"
+                app:boxCornerRadiusTopStart="@dimen/dp8"
+                app:layout_constraintTop_toBottomOf="@+id/tilEmail">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:maxLength="12" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp30"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="@dimen/dp8"
+                app:boxCornerRadiusBottomStart="@dimen/dp8"
+                app:boxCornerRadiusTopEnd="@dimen/dp8"
+                app:boxCornerRadiusTopStart="@dimen/dp8"
+                app:layout_constraintTop_toBottomOf="@+id/tilPassword">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/confirm_password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:maxLength="12" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp30"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="@dimen/dp8"
+                app:boxCornerRadiusBottomStart="@dimen/dp8"
+                app:boxCornerRadiusTopEnd="@dimen/dp8"
+                app:boxCornerRadiusTopStart="@dimen/dp8"
+                app:layout_constraintTop_toBottomOf="@+id/tilConfirmPassword">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/username"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName"
+                    android:maxLength="10" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilShortBio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp30"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="@dimen/dp8"
+                app:boxCornerRadiusBottomStart="@dimen/dp8"
+                app:boxCornerRadiusTopEnd="@dimen/dp8"
+                app:boxCornerRadiusTopStart="@dimen/dp8"
+                app:layout_constraintTop_toBottomOf="@+id/tilUsername">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtShortBio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/a_short_bio"
+                    android:imeOptions="actionDone"
+                    android:inputType="textShortMessage"
+                    android:maxLength="10" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btnSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/dp20"
+                android:layout_marginTop="@dimen/dp30"
+                android:background="@drawable/btn_submit"
+                android:gravity="center"
+                android:padding="@dimen/dp12"
+                android:text="@string/sign_up"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/tilShortBio" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp20"
+                app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

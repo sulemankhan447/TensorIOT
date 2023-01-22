@@ -1,5 +1,22 @@
 <resources>
     <string name="app_name">Tensor IOT</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="a_short_bio">A short bio</string>
+    <string name="username">Username</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="signup_failed">Failed to Sign up, Please try after sometime</string>
+    <string name="login">Log In</string>
+    <string name="or">or</string>
+    <string name="email_error">Please enter email address</string>
+    <string name="valid_email_error">Please enter valid email address</string>
+    <string name="bio_error">Please enter short bio</string>
+    <string name="username_error">Please enter username</string>
+    <string name="password_dont_match">Password and confirm password dont match</string>
+    <string name="confirm_password_error">Please enter confirm password</string>
+    <string name="password_error">Please enter password</string>
+    <string name="password_length_error">Password length should be atleast 6</string>
+    <string name="set_display_picture">Set Display Picture</string>
+    <string name="authority">com.tensoriot.fileprovider</string>
 </resources>
