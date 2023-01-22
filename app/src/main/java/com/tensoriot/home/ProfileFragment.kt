@@ -44,6 +44,8 @@ class ProfileFragment : Fragment() {
         val profile = sharedPrefHelper.getString(Constants.PROFILE)
         ImageUtils.loadRemoteImage(mBinding.ivProfile, profile)
         mBinding.tvUsername.text = "${getString(R.string.welcome)} ${sharedPrefHelper.getString(Constants.USERNAME)}"
+        mBinding.tvShortBio.text =
+            sharedPrefHelper.getString(Constants.SHORT_BIO)
     }
 
     private fun setUpProfileImage() {
