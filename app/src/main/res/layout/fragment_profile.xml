@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".home.ProfileFragment">
+        android:background="@color/white_bg"
+        tools:context=".profile.ProfileFragment">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivProfile"
@@ -45,6 +46,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvUsername"
             tools:text="@string/a_short_bio" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_weather"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dp20"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvShortBio"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_weather" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

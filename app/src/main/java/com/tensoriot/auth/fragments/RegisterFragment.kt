@@ -99,7 +99,7 @@ class RegisterFragment : Fragment(), ValidationListener {
                 is UiState.Error -> {
                     authViewModel.hideLoader()
                     requireActivity().showLongToast(
-                        if (!TextUtils.isEmpty(it.msg)) it.msg
+                        if (!TextUtils.isEmpty(it.errorMessage)) it.errorMessage
                             ?: "" else getString(R.string.signup_failed)
                     )
                 }

@@ -28,7 +28,7 @@ class FirebaseRepository @Inject constructor(
     val sharedPrefHelper: SharedPrefHelper
 ) : AuthRepository {
 
-    var statusLiveData = MutableLiveData<UiState>()
+    var statusLiveData = MutableLiveData<UiState<Nothing>>()
 
 
     override fun registerUser(request: User) {
@@ -130,7 +130,7 @@ class FirebaseRepository @Inject constructor(
 
 class SQLRepository @Inject constructor() : AuthRepository {
 
-    var statusLiveData = MutableLiveData<UiState>()
+    var statusLiveData = MutableLiveData<UiState<Nothing>>()
 
 
     override fun registerUser(request: User) {
