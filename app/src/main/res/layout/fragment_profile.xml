@@ -47,15 +47,25 @@
             app:layout_constraintTop_toBottomOf="@+id/tvUsername"
             tools:text="@string/a_short_bio" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvShortBio"
+            app:srcCompat="@drawable/ic_logout" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_weather"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginTop="@dimen/dp10"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvShortBio"
+            app:layout_constraintTop_toBottomOf="@+id/icLogout"
             tools:itemCount="2"
             tools:listitem="@layout/item_weather" />
 

@@ -33,4 +33,10 @@ class SharedPrefHelper @Inject constructor(@ApplicationContext context: Context)
         return prefs.getBoolean(key,false)
     }
 
+    fun clearData() {
+        val edit = prefs.edit()
+        edit.clear()
+        edit.apply()
+    }
+
 }
