@@ -57,7 +57,7 @@ class ProfileFragment : Fragment() {
     private fun setUpListener() {
         mBinding.icLogout.setOnClickListener {
             sharedPrefHelper.clearData()
-            findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
         }
 
     }
